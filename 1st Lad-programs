@@ -1,11 +1,14 @@
 import pandas as pd
 import numpy as np
+
 dataset=pd.read_csv("/age_salary_dataset.csv")
 dataset
+
 x=dataset.iloc[:,:-1].values
 y=dataset.iloc[:,-1].values
 print("Independent variables",x)
 print("Dependent variables",y)
+
 from sklearn.impute import SimpleImputer
 imp=SimpleImputer(missing_values=np.nan,strategy='mean')
 x=imp.fit_transform(x)
@@ -14,11 +17,13 @@ y=imp.fit_transform(y)
 y=y.reshape(-1)
 print(x)
 print(y)
+
 x_df = pd.DataFrame(x,columns=dataset.columns[:-1])
 y_df = pd.DataFrame(y,columns=[dataset.columns[-1]])
 combined_data = pd.concat([x_df,y_df],axis=1)
 print("combined Data")
 print(combined_data)
+
 combined_df = pd.DataFrame(combined_data,columns=list(dataset.columns))
 combined_df.to_excel("/combined_data.xlsx",index=False)
 print("combined DataFrame:")
